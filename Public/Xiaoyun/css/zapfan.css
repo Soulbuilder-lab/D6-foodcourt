@@ -1,0 +1,434 @@
+/* =========================================
+   🎨 Zapfan Style - Complete & Optimized
+   ========================================= */
+
+:root {
+  --primaryColor: #84a98c;
+  --secondaryColor: #cad2c5;
+  --whiteColor: #ffffff;
+  --blackColor: #333333;
+  --softGreenColor: #f0efeb;
+  --darkGreyColor: #888888;
+  --greyColor: #dde5d0;
+}
+
+/* 🔧 全局重置 (修复原文件缺失的 * 选择器) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-color: var(--softGreenColor);
+}
+
+/* 🔧 强制 Ionicons 正确渲染 (解决图标不显示问题) */
+ion-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  contain: strict;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+/* =========================================
+   📍 Sidebar
+   ========================================= */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 100;
+}
+.sidebar img {
+  width: 100%;
+  max-width: 150px;
+  margin: 0 auto 20px;
+  display: block;
+}
+.sidebar-menus { display: flex; flex-direction: column; gap: 10px; }
+.sidebar-menus a, .sidebar-logout a {
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--whiteColor);
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+.sidebar-menus a:hover, .sidebar-logout a:hover { background-color: var(--secondaryColor); }
+
+/* =========================================
+   📦 Main Layout & Navbar
+   ========================================= */
+.main-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--softGreenColor);
+}
+.main-navbar {
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--softGreenColor);
+}
+.menu-toggle { display: none; font-size: 24px; cursor: pointer; color: var(--blackColor); }
+
+.search {
+  display: flex;
+  background-color: var(--whiteColor);
+  border-radius: 25px;
+  padding: 5px;
+  width: 50%;
+  border: 1px solid var(--greyColor);
+  transition: box-shadow 0.3s;
+}
+.search input { flex: 1; border: none; padding: 10px 15px; font-size: 14px; }
+.search-btn {
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.search-btn:hover { background-color: #6b8e73; }
+
+.profile { display: flex; gap: 10px; align-items: center; }
+.cart, .user {
+  width: 40px;
+  height: 40px;
+  background-color: var(--whiteColor);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--primaryColor);
+  cursor: pointer;
+  position: relative;
+  border: 1px solid var(--greyColor);
+  transition: transform 0.2s;
+}
+.cart:hover, .user:hover { transform: scale(1.05); }
+
+/* 购物车角标 */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e63946;
+  color: #fff;
+  font-size: 11px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transform: scale(0);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.cart-count.active { transform: scale(1); }
+
+/* =========================================
+    Recommendation (Highlights)
+   ========================================= */
+.main-highlights {
+  padding: 20px 15px; /* 🔑 减小左右 padding 让内容更贴边 */
+  background-color: var(--secondaryColor);
+  margin: 20px 25px;
+  border-radius: 10px;
+}
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.main-title { font-size: 20px; color: var(--blackColor); }
+.main-arrow { display: flex; gap: 10px; font-size: 24px; cursor: pointer; }
+.main-arrow span:hover { color: var(--primaryColor); }
+
+.highlight-wrapper {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+}
+.highlight-wrapper::-webkit-scrollbar { height: 6px; }
+.highlight-wrapper::-webkit-scrollbar-thumb { background: var(--primaryColor); border-radius: 3px; }
+
+/* 🔑 核心修改：推荐卡片变宽并允许拉伸填满 */
+.highlight-card {
+  min-width: 280px;
+  flex: 1 0 280px; /* 空间充足时自动等比拉伸 */
+  background-color: var(--greyColor);
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.highlight-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.highlight-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.highlight-desc h4 { font-size: 15px; color: var(--primaryColor); }
+.highlight-desc p { font-size: 14px; color: var(--blackColor); }
+
+/* =========================================
+    Menu Category (Filter)
+   ========================================= */
+.main-menus {
+  padding: 20px 15px; /* 🔑 减小左右 padding */
+  margin: 0 25px 30px;
+  background-color: var(--greyColor);
+  border-radius: 10px;
+}
+.filter-wrapper {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+  margin-top: 15px;
+}
+.filter-wrapper::-webkit-scrollbar { height: 5px; }
+.filter-wrapper::-webkit-scrollbar-thumb { background: var(--primaryColor); border-radius: 3px; }
+
+/* 🔑 核心修改：分类卡片变宽并允许拉伸填满 */
+.filter-card {
+  min-width: 180px;
+  flex: 1 0 180px; /* 空间充足时自动等比拉伸 */
+  background-color: var(--whiteColor);
+  padding: 20px 15px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid var(--softGreenColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.filter-icon {
+  width: 50px;
+  height: 50px;
+  background-color: var(--softGreenColor);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--primaryColor);
+  flex-shrink: 0;
+}
+.filter-card p { font-size: 14px; font-weight: 500; }
+
+/* 激活状态 */
+.filter-card.active {
+  background-color: var(--primaryColor) !important;
+  color: var(--whiteColor) !important;
+  border-color: var(--primaryColor) !important;
+}
+.filter-card.active .filter-icon {
+  background-color: var(--whiteColor) !important;
+  color: var(--primaryColor) !important;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background-color: var(--primaryColor);
+  margin: 20px 0;
+}
+
+/* =========================================
+   🍽 Detail Grid (Choose Order)
+   ========================================= */
+.main-detail { margin-top: 10px; }
+.detail-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.detail-card {
+  background-color: var(--whiteColor);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.detail-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+.detail-card.hidden { display: none !important; }
+
+.detail-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px 10px 0 0;
+}
+.detail-desc {
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.detail-name h4 { font-size: 15px; margin-bottom: 5px; color: var(--blackColor); }
+.order-btn {
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 5px 0;
+  transition: opacity 0.2s;
+}
+.order-btn:hover { opacity: 0.9; }
+.detail-sub { font-size: 11px; color: var(--darkGreyColor); margin: 5px 0; line-height: 1.3; }
+.price { color: var(--primaryColor); font-weight: 600; font-size: 15px; }
+.detail-favorites {
+  font-size: 20px;
+  color: var(--darkGreyColor);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.detail-favorites:hover { color: #e63946; }
+
+/* =========================================
+   🦶 Footer
+   ========================================= */
+.site-footer {
+  background-color: #ffffff;
+  border-top: 1px solid #e5e5e5;
+  padding: 40px 0 25px;
+  margin-top: auto;
+  width: 100%;
+}
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+.footer-brand h3 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 12px; }
+.footer-brand p { font-size: 13px; color: #888888; line-height: 1.6; }
+.footer-links h4, .footer-contact h4 {
+  font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 15px;
+}
+.footer-links ul { list-style: none; }
+.footer-links ul li { margin-bottom: 10px; }
+.footer-links ul li a {
+  color: #888888; text-decoration: none; font-size: 13px; transition: color 0.3s;
+}
+.footer-links ul li a:hover { color: var(--primaryColor); }
+.footer-contact p { color: #888888; font-size: 13px; margin-bottom: 10px; }
+
+.footer-brand .social-icons { display: flex; gap: 10px; margin-top: 15px; }
+.footer-brand .social-icons a {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; background-color: var(--greyColor);
+  color: var(--darkGreyColor); border-radius: 50%; font-size: 16px;
+  text-decoration: none; transition: all 0.3s ease;
+}
+.footer-brand .social-icons a:hover {
+  background-color: var(--primaryColor); color: var(--whiteColor); transform: translateY(-2px);
+}
+.footer-copy {
+  text-align: center; padding-top: 25px; border-top: 1px solid #f0f0f0;
+}
+.footer-copy p { color: #888888; font-size: 13px; }
+
+/* =========================================
+   🔔 Toast Notification
+   ========================================= */
+.toast {
+  position: fixed; top: 20px; right: 20px;
+  background-color: var(--whiteColor); color: var(--blackColor);
+  padding: 14px 20px; border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 600; z-index: 9999;
+  opacity: 0; visibility: hidden; transform: translateY(-10px);
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--primaryColor); pointer-events: none;
+}
+.toast.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.toast ion-icon { font-size: 20px; color: var(--primaryColor); }
+
+/* =========================================
+   📱 Responsive Breakpoints
+   ========================================= */
+@media screen and (max-width: 1024px) {
+  .detail-wrapper { grid-template-columns: repeat(3, 1fr); }
+}
+@media screen and (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+  .sidebar.active { transform: translateX(0); }
+  .main-content { margin-left: 0; width: 100%; }
+  .menu-toggle { display: block; }
+  .search { width: 60%; }
+  .detail-wrapper { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; text-align: center; }
+  .footer-brand .social-icons { justify-content: center; }
+  .main-highlights, .main-menus { margin: 15px 10px; padding: 15px 10px; }
+  .toast {
+    top: auto; bottom: 20px; right: 50%; transform: translateX(50%) translateY(10px);
+    width: 90%; max-width: 320px; justify-content: center;
+  }
+  .toast.show { transform: translateX(50%) translateY(0); }
+}
+@media screen and (max-width: 480px) {
+  .detail-wrapper { grid-template-columns: 1fr; }
+  .search { width: 50%; }
+  .main-navbar { padding: 15px 20px; }
+  .footer-wrapper { padding: 0 20px; }
+  .highlight-card, .filter-card { min-width: 240px; }
+}
