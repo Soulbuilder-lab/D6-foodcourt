@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drinks | Boba Milk</title>
+    <link rel="stylesheet" href="/public/drinks/css/drinks.css">
+    <!-- Ionicons for icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="shortcut icon" href="/public/drinks/images boba/logo.jpeg">
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js"></script>
+    <!-- Your Firebase Config -->
+    <script type="module">
+        import { auth, db } from './firebase-config.js';
+  
+        window.firebaseAuth = auth;
+        window.firebaseDb = db;
+    </script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <img src="/public/drinks/images boba/logo.jpeg" alt="Logo">
+        </div>
+        <nav class="sidebar-menus">
+            <a href="/public/index.html"><ion-icon name="home-outline"></ion-icon> Home</a>
+            <a href="#"><ion-icon name="person-outline"></ion-icon> Contact Us</a>
+        </nav>
+        <div class="sidebar-logout">
+            <a href="/public/login/admin-login.html"><ion-icon name="log-in-outline"></ion-icon> Log In</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Navbar -->
+        <nav class="main-navbar">
+            <div class="menu-toggle"><ion-icon name="menu-outline"></ion-icon></div>
+            <div class="search">
+                <input type="text" placeholder="Search drinks...">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="profile">
+                <a href="/public/drinks/drinkcart.html" class="cart"><ion-icon name="cart-outline">
+                  </ion-icon><span class="cart-count" id="cart-count">0</span></a>
+            </div>
+        </nav>
+
+        <!-- Highlights / Recommendations -->
+        <section class="main-highlights">
+            <div class="main-header">
+                <h2 class="main-title">Recommendation</h2>
+                <div class="main-arrow">
+                    <span class="back"><ion-icon name="chevron-back-outline"></ion-icon></span>
+                    <span class="next"><ion-icon name="chevron-forward-outline"></ion-icon></span>
+                </div>
+            </div>
+            <div id="recommedations" class="highlight-wrapper">
+                <div class="highlight-card"><img src="/public/drinks/images boba/classic milk tea.jpg" class="highlight-img" alt="">
+                    <div class="highlight-desc">
+                        <h4>Classic Milk Tea</h4>
+                        <p>RM5.90</p>
+                    </div>
+                </div>
+                <div class="highlight-card"><img src="/public/drinks/images boba/brown sugar bubble milk tea.jpg" class="highlight-img" alt="">
+                    <div class="highlight-desc">
+                        <h4>Brown Sugar Bubble Milk Tea</h4>
+                        <p>RM7.90</p>
+                    </div>
+                </div>
+                <div class="highlight-card"><img src="/public/drinks/images boba/matcha blended.jpg" class="highlight-img" alt="">
+                    <div class="highlight-desc">
+                        <h4>Matcha Blended</h4>
+                        <p>RM10.90</p>
+                    </div>
+                </div>
+                <div class="highlight-card"><img src="/public/drinks/images boba/oolong milk tea.jpg" class="highlight-img" alt="">
+                    <div class="highlight-desc">
+                        <h4>Oolong Milk Tea</h4>
+                        <p>RM6.90</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu & Filter -->
+        <section class="main-menus" id="menu">
+            <div class="main-header">
+                <h2 class="main-title">Menu Category</h2>
+                <div class="main-arrow">
+                    <span class="back-menus"><ion-icon name="chevron-back-outline"></ion-icon></span>
+                    <span class="next-menus"><ion-icon name="chevron-forward-outline"></ion-icon></span>
+                </div>
+            </div>
+            <div class="main-filter">
+                <div class="filter-wrapper">
+                    <div class="filter-card active" onclick="filterMenu('all')">
+                        <div class="filter-icon"><ion-icon name="grid-outline"></ion-icon></div>
+                        <p>All Drinks</p>
+                    </div>
+                    <div class="filter-card" onclick="filterMenu('milk-tea')">
+                        <div class="filter-icon"><ion-icon name="cafe-outline"></ion-icon></div>
+                        <p>Milk Teas</p>
+                    </div>
+                    <div class="filter-card" onclick="filterMenu('ice-blended')">
+                        <div class="filter-icon"><ion-icon name="leaf-outline"></ion-icon></div>
+                        <p>Ice Blended</p>
+                    </div>
+                    <div class="filter-card" onclick="filterMenu('coffee')">
+                        <div class="filter-icon"><ion-icon name="cafe-outline"></ion-icon></div>
+                        <p>Coffee</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="divider">
+
+            <!-- Detail Grid -->
+            <div id="menus" class="main-detail">
+                <div class="detail-wrapper">
+                    <div class="detail-card" data-category="milk-tea">
+                        <img src="/public/drinks/images boba/brown sugar bubble milk tea.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Brown Sugar Bubble Milk Tea</h4>
+                                <span class="price">RM7.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Brown Sugar Bubble Milk Tea', 7.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="milk-tea">
+                        <img src="/public/drinks/images boba/classic milk tea.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Classic Milk Tea</h4>
+                                <span class="price">RM5.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Classic Milk Tea', 5.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="fruit-tea">
+                        <img src="/public/drinks/images boba/matcha milk tea.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Matcha Milk Tea</h4>
+                                <span class="price">RM8.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Matcha Milk Tea', 8.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="milk-tea">
+                        <img src="/public/drinks/images boba/oolong milk tea.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Oolong Milk Tea</h4>
+                                <span class="price">RM6.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Oolong Milk Tea', 6.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="milk-tea">
+                        <img src="/public/drinks/images boba/taro milk tea.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Taro Milk Tea</h4>
+                                <span class="price">RM8.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Taro Milk Tea', 8.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="ice-blended">
+                        <img src="/public/drinks/images boba/chocolate blended.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Chocolate Blended</h4>
+                                <span class="price">RM10.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Chocolate Blended', 10.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="ice-blended">
+                        <img src="/public/drinks/images boba/mango blended.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Mango Blended</h4>
+                                <span class="price">RM10.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Mango Blended', 10.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="ice-blended">
+                        <img src="/public/drinks/images boba/matcha blended.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Matcha Blended</h4>
+                                <span class="price">RM10.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Matcha Blended', 10.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="ice-blended">
+                        <img src="/public/drinks/images boba/oreo blended.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Oreo Blended</h4>
+                                <span class="price">RM10.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Oreo Blended', 10.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="ice-blended">
+                        <img src="/public/drinks/images boba/strawberry blended.jpg" class="detail-img" alt="Brown Sugar Boba">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Strawberry Blended</h4>
+                                <span class="price">RM10.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Strawberry Blended', 10.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="coffee">
+                        <img src="/public/drinks/images boba/hot cappucino.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Hot Cappucino</h4>
+                                <span class="price">RM4.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Hot Cappucino', 4.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="coffee">
+                        <img src="/public/drinks/images boba/ice cappucino.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Ice Cappucino</h4>
+                                <span class="price">RM5.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Ice Cappucino', 5.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="coffee">
+                        <img src="/public/drinks/images boba/hot latte.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Hot Latte</h4>
+                                <span class="price">RM4.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Hot Latte', 4.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="coffee">
+                        <img src="/public/drinks/images boba/ice latte.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Ice Latte</h4>
+                                <span class="price">RM5.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Ice Latte', 5.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="coffee">
+                        <img src="/public/drinks/images boba/hot mocha.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Hot Mocha</h4>
+                                <span class="price">RM4.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Hot Mocha', 4.90)">Add To Cart</button>
+                    </div>
+
+                    <div class="detail-card" data-category="coffee">
+                        <img src="/public/drinks/images boba/ice mocha.jpg" class="detail-img" alt="">
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>Ice Mocha</h4>
+                                <span class="price">RM5.90</span>
+                            </div>
+                            <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+                        </div>
+                        <button class="order-btn" onclick="checkTableBeforeAdd('Ice Mocha', 5.90)">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4>Bobba Hub</h4>
+      <p>Delicious food, delivered with care. Order now and enjoy the best meals in town.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a>
+        <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a href="https://wa.me/60123456789" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="logo-whatsapp"></ion-icon>
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="/public/index.html">Home</a></li>
+        <li><a href="#recommedations">Recommedation</a></li>
+        <li><a href="#menus">Menu</a></li>
+        <li><a href="#">About Us</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Contact Us</h4>
+      <ul class="contact-info">
+        <li><ion-icon name="location-outline"></ion-icon> Xiamen University Malaysia D6</li>
+        <li><ion-icon name="call-outline"></ion-icon> +60 16-9854684</li>
+        <li><ion-icon name="mail-outline"></ion-icon> bobbahub@gmail.com</li>
+        <li><ion-icon name="time-outline"></ion-icon> Mon-Sun: 11AM - 10PM</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; 2024 Bobba Hub. All Rights Reserved.</p>
+  </div>
+</footer>
+
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="toast">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <span id="toast-message">Item added to cart!</span>
+    </div>
+</body>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="/public/drinks/js/drink.js"></script>
+
+</html>
