@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant | Zapfan</title>
+  <link rel="stylesheet" href="/public/ZapFan/css/zapfan.css">
+  <link rel="shortcut icon" href="/public/ZapFan/images/logo zapfan.jpg">
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js"></script>
+  <script type="module">
+    import { auth, db } from './firebase-config.js';
+  
+    window.firebaseAuth = auth;
+    window.firebaseDb = db;
+  </script>
+</head>
+<body>
+  <!-- Toast 提示容器 -->
+  <div id="toast-notification" class="toast">
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    <span id="toast-message">Item added to cart!</span>
+  </div>
+
+  <div class="sidebar">
+    <div class="logo-area">
+      <img src="/public/ZapFan/images/logo zapfan.jpg" alt="Zapfan Logo">
+    </div>
+    <div class="sidebar-menus">
+      <a href="/public/index.html"><ion-icon name="home-outline"></ion-icon> Home</a>
+      <a href="#"><ion-icon name="call-outline"></ion-icon> Contact Us</a>
+    </div>
+    <div class="sidebar-logout">
+      <a href="/public/login/admin-login.html"><ion-icon name="log-out-outline"></ion-icon> Log In</a>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <nav class="main-navbar">
+      <div class="menu-toggle"><ion-icon name="menu-outline"></ion-icon></div>
+      <div class="search">
+        <input type="text" id="search-input" placeholder="Search menu...">
+        <button class="search-btn" id="search-btn">Search</button>
+      </div>
+      <div class="profile">
+         <a href="/public/ZapFan/zapfancart.html" class="cart" id="cart-toggle" style="text-decoration: none;">
+          <ion-icon name="cart-outline"></ion-icon>
+          <span id="cart-count" class="cart-count">0</span>
+        </a>
+      </div>
+    </nav>
+
+    <section class="main-highlights">
+      <div class="main-header">
+        <h2 class="main-title">Recommendation</h2>
+        <div class="main-arrow">
+          <span class="back"><ion-icon name="arrow-back-outline"></ion-icon></span>
+          <span class="next"><ion-icon name="arrow-forward-outline"></ion-icon></span>
+        </div>
+      </div>
+      <div class="highlight-wrapper" id="highlight-scroll">
+        <div class="highlight-card">
+          <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Sweet%20Tofu.jpg" class="highlight-img">
+          <div class="highlight-desc"><h4>Sweet Tofu</h4><p>RM5.90</p></div>
+        </div>
+        <div class="highlight-card">
+          <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Chicken%20.jpg" class="highlight-img">
+          <div class="highlight-desc"><h4>Chicken</h4><p>RM5.90</p></div>
+        </div>
+        <div class="highlight-card">
+          <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Pork%20.jpg" class="highlight-img">
+          <div class="highlight-desc"><h4>Pork</h4><p>RM6.90</p></div>
+        </div>
+        <div class="highlight-card">
+          <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Duck%20.jpg" class="highlight-img">
+          <div class="highlight-desc"><h4>Duck</h4><p>RM6.90</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-menus">
+      <div class="main-header">
+        <h2 class="main-title">Menu Category</h2>
+        <div class="main-arrow">
+          <span class="back-menu"><ion-icon name="arrow-back-outline"></ion-icon></span>
+          <span class="next-menu"><ion-icon name="arrow-forward-outline"></ion-icon></span>
+        </div>
+      </div>
+      <div class="filter-wrapper" id="filter-scroll">
+        <div class="filter-card active" data-category="all" onclick="filterMenu('all')">
+          <div class="filter-icon"><ion-icon name="grid-outline"></ion-icon></div>
+          <p>All Menu</p>
+        </div>
+        <div class="filter-card" data-category="main-course" onclick="filterMenu('main-course')">
+          <div class="filter-icon"><ion-icon name="restaurant-outline"></ion-icon></div>
+          <p>Main Course</p>
+        </div>
+        <div class="filter-card" data-category="meat" onclick="filterMenu('meat')">
+          <div class="filter-icon"><ion-icon name="flame-outline"></ion-icon></div>
+          <p>Meat</p>
+        </div>
+        <div class="filter-card" data-category="veggie" onclick="filterMenu('veggie')">
+          <div class="filter-icon"><ion-icon name="leaf-outline"></ion-icon></div>
+          <p>Veggie</p>
+        </div>
+      </div>
+      
+      <hr class="divider">
+
+      <div class="main-detail">
+        <h2 class="main-title">Choose Order</h2>
+        <div class="detail-wrapper" id="menu-grid">
+          <!-- 保持原有卡片结构，已补齐 data-category -->
+          <div class="detail-card" data-category="main-course">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Egg.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Egg</h4><button class="order-btn" onclick="checkTableBeforeAdd('Egg', 1.50, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Egg.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM1.50</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Pork%20.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Pork</h4><button class="order-btn" onclick="checkTableBeforeAdd('Pork', 6.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Pork%20.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM6.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Duck%20.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Duck</h4><button class="order-btn" onclick="checkTableBeforeAdd('Duck', 6.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Duck%20.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM6.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/fried%20fish%20.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Fish</h4><button class="order-btn" onclick="checkTableBeforeAdd('Fish', 5.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/fried%20fish%20.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM5.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Chicken%20.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Chicken</h4><button class="order-btn" onclick="checkTableBeforeAdd('Chicken', 5.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Chicken%20.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM5.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Squid.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Squid</h4><button class="order-btn" onclick="checkTableBeforeAdd('Squid', 5.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Squid.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM5.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/%20Fried%20Chicken.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Fried Chicken</h4><button class="order-btn" onclick="checkTableBeforeAdd('Fried Chicken', 4.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/%20Fried%20Chicken.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM4.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="veggie">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Fried%20Broccoli.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Fried Brocolli</h4><button class="order-btn" onclick="checkTableBeforeAdd('Fried Brocolli', 3.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Fried%20Broccoli.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM3.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="main-course">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Fried%20Rice%20.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Fried Rice</h4><button class="order-btn" onclick="checkTableBeforeAdd('Fried Rice', 4.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Fried%20Rice%20.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM4.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="veggie">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Fried%20Lady%20Fingers.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Fried Lady Fingers</h4><button class="order-btn" onclick="checkTableBeforeAdd('Fried Lady Fingers', 3.00, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Fried%20Lady%20Fingers.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM3.00</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="main-course">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Tomato%20Fried%20Egg.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Tomato Fried Egg</h4><button class="order-btn" onclick="checkTableBeforeAdd('Tomato Fried Egg', 4.00, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Tomato%20Fried%20Egg.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM4.00</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="main-course">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Noodles.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Noodles</h4><button class="order-btn" onclick="checkTableBeforeAdd('Noodles', 1.50, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Noodles.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM1.50</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Nugget.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Nugget</h4><button class="order-btn" onclick="checkTableBeforeAdd('Nugget', 6.50, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Nugget.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM6.50</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/%20Sausages%20%20-.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Sausages</h4><button class="order-btn" onclick="checkTableBeforeAdd('Sausages', 6.50, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/%20Sausages%20%20-.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM6.50</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="meat">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Sweet%20Pork.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Sweet Pork</h4><button class="order-btn" onclick="checkTableBeforeAdd('Sweet Pork', 6.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Sweet%20Pork.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM6.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+          <div class="detail-card" data-category="veggie">
+            <img src="https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Sweet%20Tofu.jpg" class="detail-img">
+            <div class="detail-desc">
+              <div class="detail-name"><h4>Sweet Tofu</h4><button class="order-btn" onclick="checkTableBeforeAdd('Sweet Tofu', 5.90, 'https://uploads.onecompiler.io/44nuxzfu6/44nuxvu2n/Sweet%20Tofu.jpg')">Add To Cart</button><p class="detail-sub">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><span class="price">RM5.90</span></div>
+              <ion-icon name="heart-outline" class="detail-favorites"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-wrapper">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>ZapFan</h3>
+            <p>Luxury unified dining experience. Scan, order, and pay cash at your favorite stalls.</p>
+            <div class="social-icons">
+              <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="/public/index.html">Home</a></li>
+              <li><a href="/public/ZapFan/zapfancart.html">My Cart</a></li>
+              <li><a href="#">Live Alerts</a></li>
+              <li><a href="#">Order History</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h4>Contact</h4>
+            <p>support@zapfan.com</p>
+            <p>016-335-9783</p>
+            <p>Open Daily: 8AM - 8PM</p>
+          </div>
+        </div>
+        <div class="footer-copy">
+          <p>© 2024 FoodCourt Hub. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</body>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+  <script src="/public/ZapFan/js/zapfan.js"></script>
+</html>
