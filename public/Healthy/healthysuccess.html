@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Healthy/css/healthysuccess.css">
-    <link rel="stylesheet" href="/Healthy/css/healthy.css">
+    <link rel="stylesheet" href="/public/Healthy/css/healthysuccess.css">
+    <link rel="stylesheet" href="/public/Healthy/css/healthy.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="/Healthy/images/logo.jpg">
+    <link rel="shortcut icon" href="/public/Healthy/images/logo.jpg">
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js"></script>
     <script type="module">
-        import { auth, db } from '/js/firebase-config.js';
+        import { auth, db } from './firebase-config.js';
   
 
         window.firebaseAuth = auth;
@@ -20,7 +24,7 @@
 
     <div class="sidebar">
         <div class="logo-area">
-            <img src="/Healthy/images/logo.jpg" alt="Logo"> 
+            <img src="/public/Healthy/images/logo.jpg" alt="Logo"> 
         </div>
     </div>
 
@@ -86,7 +90,7 @@
             </div>
 
             <div class="action-buttons">
-                <button class="btn btn-primary" onclick="window.location.href='/Healthy/healthy.html'">
+                <button class="btn btn-primary" onclick="window.location.href='/public/Healthy/healthy.html'">
                     <ion-icon name="arrow-back-outline"></ion-icon> Continue Shopping
                 </button>
                 <button class="btn btn-secondary" onclick="downloadReceipt()">
@@ -98,6 +102,6 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="/Healthy/js/healthysuccess.js"></script>
+    <script src="/public/Healthy/js/healthysuccess.js"></script>
 </body>
 </html>

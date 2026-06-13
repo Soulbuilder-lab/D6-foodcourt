@@ -4,11 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/Healthy/css/healthy.css">
+  <link rel="stylesheet" href="/public/Healthy/css/healthy.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="/Healthy/images/logo.jpg">
+  <link rel="shortcut icon" href="/public/Healthy/images/logo.jpg">
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js"></script>
   <script type="module">
-    import { auth, db } from '/js/firebase-config.js';
+    import { auth, db } from './firebase-config.js';
   
     window.firebaseAuth = auth;
     window.firebaseDb = db;
@@ -19,15 +23,15 @@
 
   <div class="sidebar">
     <div class="logo-area">
-      <img src="/Healthy/images/logo.jpg" alt="Logo"> 
+      <img src="/public/Healthy/images/logo.jpg" alt="Logo"> 
     </div>
     <div class="sidebar-menus">
-      <a href="/index.html"><ion-icon name="storefront-outline"></ion-icon>Home</a>
+      <a href="/public/index.html"><ion-icon name="storefront-outline"></ion-icon>Home</a>
       <a href="#"><ion-icon name="chatbubbles-outline"></ion-icon>Contact Us</a>
     </div>
 
     <div class="sidebar-logout">
-      <a href="/login/admin-login.html"><ion-icon name="log-in-outline"></ion-icon>Log In</a>
+      <a href="/public/login/admin-login.html"><ion-icon name="log-in-outline"></ion-icon>Log In</a>
     </div>
   </div>
 
@@ -40,7 +44,7 @@
       </div>  
 
       <div class="profile">
-        <a class="cart" href="/Healthy/healthycart.html">
+        <a class="cart" href="/public/Healthy/healthycart.html">
           <ion-icon name="cart-outline"></ion-icon>
           <span class="cart-count" id="cart-count">0</span>
         </a>
@@ -58,7 +62,7 @@
 
       <div id="recommedations" class="highlight-wrapper">
         <div class="highlight-card">
-          <img class="highlight-img" src="/Healthy/images/baked salmon.jpg">
+          <img class="highlight-img" src="/public/Healthy/images/baked salmon.jpg">
           <div class="highlight-desc">
             <h4>Grilled Chicken with Rice</h4>
             <p>RM14.90</p>
@@ -66,7 +70,7 @@
         </div>
 
         <div class="highlight-card">
-          <img class="highlight-img" src="/Healthy/images/oatmeals.jpg">
+          <img class="highlight-img" src="/public/Healthy/images/oatmeals.jpg">
           <div class="highlight-desc">
             <h4>Oatmeals</h4>
             <p>RM6.90</p>
@@ -74,7 +78,7 @@
         </div>
 
         <div class="highlight-card">
-          <img class="highlight-img" src="/Healthy/images/baked salmon with rice.jpg">
+          <img class="highlight-img" src="/public/Healthy/images/baked salmon with rice.jpg">
           <div class="highlight-desc">
             <h4>Baked Salmon with Rice</h4>
             <p>RM17.90</p>
@@ -82,7 +86,7 @@
         </div>
 
         <div class="highlight-card">
-          <img class="highlight-img" src="/Healthy/images/tuna sandwich.jpg">
+          <img class="highlight-img" src="/public/Healthy/images/tuna sandwich.jpg">
           <div class="highlight-desc">
             <h4>Tuna Sandwich</h4>
             <p>RM5.90</p>
@@ -90,7 +94,7 @@
         </div>
 
         <div class="highlight-card">
-          <img class="highlight-img" src="/Healthy/images/yogurt.jpg">
+          <img class="highlight-img" src="/public/Healthy/images/yogurt.jpg">
           <div class="highlight-desc">
             <h4>Yogurt</h4>
             <p>RM4.90</p>
@@ -135,7 +139,7 @@
         <div class="detail-wrapper">
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/baked salmon with rice.jpg">
+            <img class="detail-img" src="/public/Healthy/images/baked salmon with rice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Baked Salmon with Rice</h4>
@@ -148,7 +152,7 @@
           </div>   
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/grilled chicken with rice.jpg">
+            <img class="detail-img" src="/public/Healthy/images/grilled chicken with rice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Grilled Chicken with Rice</h4>
@@ -161,7 +165,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/oatmeals.jpg">
+            <img class="detail-img" src="/public/Healthy/images/oatmeals.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Oatmeals</h4>
@@ -174,7 +178,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/salad.jpg">
+            <img class="detail-img" src="/public/Healthy/images/salad.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Salad</h4>
@@ -187,7 +191,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/scrambled egg.jpg">
+            <img class="detail-img" src="/public/Healthy/images/scrambled egg.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Scrambled Egg</h4>
@@ -200,7 +204,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/stir fried broccoli.jpg">
+            <img class="detail-img" src="/public/Healthy/images/stir fried broccoli.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Stir Fried Broccoli</h4>
@@ -213,7 +217,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/tuna sandwich.jpg">
+            <img class="detail-img" src="/public/Healthy/images/tuna sandwich.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Tuna Sandwich</h4>
@@ -226,7 +230,7 @@
           </div>
 
           <div class="detail-card" data-category="snack">
-            <img class="detail-img" src="/Healthy/images/yogurt.jpg">
+            <img class="detail-img" src="/public/Healthy/images/yogurt.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Yogurt</h4>
@@ -239,7 +243,7 @@
           </div>
 
           <div class="detail-card" data-category="snack">
-            <img class="detail-img" src="/Healthy/images/boiled egg.jpg">
+            <img class="detail-img" src="/public/Healthy/images/boiled egg.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Boiled Egg</h4>
@@ -252,7 +256,7 @@
           </div>
 
           <div class="detail-card" data-category="snack">
-            <img class="detail-img" src="/Healthy/images/edamame.jpg">
+            <img class="detail-img" src="/public/Healthy/images/edamame.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Edamame</h4>
@@ -265,7 +269,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Healthy/images/ice green tea.jpg">
+            <img class="detail-img" src="/public/Healthy/images/ice green tea.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Ice Green Tea</h4>
@@ -278,7 +282,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Healthy/images/hot green tea.jpg">
+            <img class="detail-img" src="/public/Healthy/images/hot green tea.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Hot Green Tea</h4>
@@ -291,7 +295,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Healthy/images/apple juice.jpg">
+            <img class="detail-img" src="/public/Healthy/images/apple juice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Apple Juice</h4>
@@ -304,7 +308,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Healthy/images/orange juice.jpg">
+            <img class="detail-img" src="/public/Healthy/images/orange juice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Orange Juice</h4>
@@ -317,7 +321,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Healthy/images/passion fruit juice.jpg">
+            <img class="detail-img" src="/public/Healthy/images/passion fruit juice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Passion Fruit Juice</h4>
@@ -330,7 +334,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Healthy/images/watermelon juice.jpg">
+            <img class="detail-img" src="/public/Healthy/images/watermelon juice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Watermelon Juice</h4>
@@ -343,7 +347,7 @@
           </div>
 
           <div class="detail-card" data-category="snack">
-            <img class="detail-img" src="/Healthy/images/abc soup.jpg">
+            <img class="detail-img" src="/public/Healthy/images/abc soup.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>ABC Soup</h4>
@@ -356,7 +360,7 @@
           </div>
 
           <div class="detail-card" data-category="snack">
-            <img class="detail-img" src="/Healthy/images/avocado toast.jpg">
+            <img class="detail-img" src="/public/Healthy/images/avocado toast.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Avocado Toast</h4>
@@ -369,7 +373,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/cereal milk.jpg">
+            <img class="detail-img" src="/public/Healthy/images/cereal milk.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Cereal Milk</h4>
@@ -382,7 +386,7 @@
           </div>
 
           <div class="detail-card" data-category="snack">
-            <img class="detail-img" src="/Healthy/images/fruit bowl.jpg">
+            <img class="detail-img" src="/public/Healthy/images/fruit bowl.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Fruit Bowl</h4>
@@ -395,7 +399,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/spaghetti pasta.jpg">
+            <img class="detail-img" src="/public/Healthy/images/spaghetti pasta.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Spaghetti Pasta</h4>
@@ -408,7 +412,7 @@
           </div>
 
           <div class="detail-card" data-category="snack">
-            <img class="detail-img" src="/Healthy/images/tuna wrap.jpg">
+            <img class="detail-img" src="/public/Healthy/images/tuna wrap.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Tuna Wrap</h4>
@@ -421,7 +425,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Healthy/images/roasted sweet potato.jpg">
+            <img class="detail-img" src="/public/Healthy/images/roasted sweet potato.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Roasted Sweet Potato</h4>
@@ -462,7 +466,7 @@
     <div class="footer-section">
       <h4>Quick Links</h4>
       <ul>
-        <li><a href="/index.html">Home</a></li>
+        <li><a href="/public/index.html">Home</a></li>
         <li><a href="#recommedations">Recommedation</a></li>
         <li><a href="#menus">Menu</a></li>
         <li><a href="#">About Us</a></li>
@@ -497,6 +501,6 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-<script src="/Healthy/js/healthy.js"></script>
+<script src="/public/Healthy/js/healthy.js"></script>
 
 </html>

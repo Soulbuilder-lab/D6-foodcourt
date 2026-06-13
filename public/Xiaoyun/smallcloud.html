@@ -4,31 +4,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/Xiaoyun/css/smallcloud_style.css">
+  <link rel="stylesheet" href="css/smallcloud_style.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js"></script>
   <script type="module">
-  import { auth, db } from '/js/firebase-config.js';
+  import { auth, db } from './firebase-config.js';
   
   // Make globally available if needed
   window.firebaseAuth = auth;
   window.firebaseDb = db;
   </script>
-  <link rel="shortcut icon" href="/Xiaoyun/images/logo.jpg">
+  <link rel="shortcut icon" href="images/logo.jpg">
   <title>Restaurant | Small Cloud</title>
 </head>
 <body>
 
   <div class="sidebar">
     <div class="logo-area">
-      <img src="/Xiaoyun/images/logo.jpg" alt="Logo"> 
+      <img src="images/logo.jpg" alt="Logo"> 
     </div>
     <div class="sidebar-menus">
-      <a href="/index.html"><ion-icon name="storefront-outline"></ion-icon>Home</a>
+      <a href="/public/index.html"><ion-icon name="storefront-outline"></ion-icon>Home</a>
       <a href="#"><ion-icon name="chatbubbles-outline"></ion-icon>Contact Us</a>
     </div>
 
     <div class="sidebar-logout">
-      <a href="/login/admin-login.html"><ion-icon name="log-in-outline"></ion-icon>Log In</a>
+      <a href="/public/login/admin-login.html"><ion-icon name="log-in-outline"></ion-icon>Log In</a>
     </div>
   </div>
 
@@ -59,7 +63,7 @@
 
       <div id="recommedation" class="highlight-wrapper">
         <div class="highlight-card">
-          <img class="highlight-img" src="/Xiaoyun/images/fried chicken rice.jpg">
+          <img class="highlight-img" src="images/fried chicken rice.jpg">
           <div class="highlight-desc">
             <h4>Fried Chicken Rice</h4>
             <p>RM10.90</p>
@@ -67,7 +71,7 @@
         </div>
 
         <div class="highlight-card">
-          <img class="highlight-img" src="/Xiaoyun/images/soup noodle.jpg">
+          <img class="highlight-img" src="images/soup noodle.jpg">
           <div class="highlight-desc">
             <h4>Soup Noodle</h4>
             <p>RM9.90</p>
@@ -75,7 +79,7 @@
         </div>
 
         <div class="highlight-card">
-          <img class="highlight-img" src="/Xiaoyun/images/egg tart.jpg">
+          <img class="highlight-img" src="images/egg tart.jpg">
           <div class="highlight-desc">
             <h4>Egg Tart</h4>
             <p>RM3.90</p>
@@ -83,7 +87,7 @@
         </div>
 
         <div class="highlight-card">
-          <img class="highlight-img" src="/Xiaoyun/images/ice kacang.jpg">
+          <img class="highlight-img" src="images/ice kacang.jpg">
           <div class="highlight-desc">
             <h4>Ice Kacang</h4>
             <p>RM7.90</p>
@@ -91,7 +95,7 @@
         </div>
 
         <div class="highlight-card">
-          <img class="highlight-img" src="/Xiaoyun/images/tiramisu cake.jpg">
+          <img class="highlight-img" src="images/tiramisu cake.jpg">
           <div class="highlight-desc">
             <h4>Tiramisu Cake</h4>
             <p>RM11.90</p>
@@ -136,7 +140,7 @@
         <div class="detail-wrapper">
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Xiaoyun/images/fried chicken rice.jpg">
+            <img class="detail-img" src="images/fried chicken rice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Fried Chicken Rice</h4>
@@ -149,7 +153,7 @@
           </div>   
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Xiaoyun/images/soup noodle.jpg">
+            <img class="detail-img" src="images/soup noodle.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Soup Noodle</h4>
@@ -162,7 +166,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Xiaoyun/images/cheese rice.jpg">
+            <img class="detail-img" src="images/cheese rice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Cheese Rice</h4>
@@ -175,7 +179,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Xiaoyun/images/cheese noodle.jpg">
+            <img class="detail-img" src="images/cheese noodle.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Cheese Noodle</h4>
@@ -188,7 +192,7 @@
           </div>
 
           <div class="detail-card" data-category="dessert">
-            <img class="detail-img" src="/Xiaoyun/images/egg tart.jpg">
+            <img class="detail-img" src="images/egg tart.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Egg Tart</h4>
@@ -201,7 +205,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Xiaoyun/images/cold milk tea.jpg">
+            <img class="detail-img" src="images/cold milk tea.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Cold Milk Tea</h4>
@@ -214,7 +218,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Xiaoyun/images/ice coffee.jpg">
+            <img class="detail-img" src="images/ice coffee.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Ice Coffee</h4>
@@ -227,7 +231,7 @@
           </div>
 
           <div class="detail-card" data-category="dessert">
-            <img class="detail-img" src="/Xiaoyun/images/tiramisu cake.jpg">
+            <img class="detail-img" src="images/tiramisu cake.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Tiramisu Cake</h4>
@@ -240,7 +244,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Xiaoyun/images/hot coffee.jpg">
+            <img class="detail-img" src="images/hot coffee.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Hot Coffee</h4>
@@ -253,7 +257,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Xiaoyun/images/hot milk tea.jpg">
+            <img class="detail-img" src="images/hot milk tea.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Hot Milk Tea</h4>
@@ -266,7 +270,7 @@
           </div>
 
           <div class="detail-card" data-category="dessert">
-            <img class="detail-img" src="/Xiaoyun/images/polo bun.jpg">
+            <img class="detail-img" src="images/polo bun.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Polo Bun</h4>
@@ -279,7 +283,7 @@
           </div>
 
           <div class="detail-card" data-category="dessert">
-            <img class="detail-img" src="/Xiaoyun/images/chocolate cake.jpg">
+            <img class="detail-img" src="images/chocolate cake.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Chocolate Cake</h4>
@@ -292,7 +296,7 @@
           </div>
 
           <div class="detail-card" data-category="dessert">
-            <img class="detail-img" src="/Xiaoyun/images/ice cream.jpg">
+            <img class="detail-img" src="images/ice cream.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Ice Cream</h4>
@@ -305,7 +309,7 @@
           </div>
 
           <div class="detail-card" data-category="dessert">
-            <img class="detail-img" src="/Xiaoyun/images/toast.jpg">
+            <img class="detail-img" src="images/toast.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Toast</h4>
@@ -318,7 +322,7 @@
           </div>
 
           <div class="detail-card" data-category="dessert">
-            <img class="detail-img" src="/Xiaoyun/images/cendol.jpg">
+            <img class="detail-img" src="images/cendol.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Cendol</h4>
@@ -331,7 +335,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Xiaoyun/images/wantan mee soup.jpg">
+            <img class="detail-img" src="images/wantan mee soup.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Wantan Mee Soup</h4>
@@ -344,7 +348,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Xiaoyun/images/wantan mee.jpg">
+            <img class="detail-img" src="images/wantan mee.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Wantan Mee</h4>
@@ -357,7 +361,7 @@
           </div>
 
           <div class="detail-card" data-category="food">
-            <img class="detail-img" src="/Xiaoyun/images/sweet & sour chicken rice.jpg">
+            <img class="detail-img" src="images/sweet & sour chicken rice.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Sweet & Sour Chicken Rice</h4>
@@ -370,7 +374,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Xiaoyun/images/ice milo.jpg">
+            <img class="detail-img" src="images/ice milo.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Ice Milo</h4>
@@ -383,7 +387,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Xiaoyun/images/hot milo.jpg">
+            <img class="detail-img" src="images/hot milo.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Hot Milo</h4>
@@ -396,7 +400,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Xiaoyun/images/ice lemon tea.jpg">
+            <img class="detail-img" src="images/ice lemon tea.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Ice Lemon Tea</h4>
@@ -409,7 +413,7 @@
           </div>
 
           <div class="detail-card" data-category="drink">
-            <img class="detail-img" src="/Xiaoyun/images/hot lemon tea.jpg">
+            <img class="detail-img" src="images/hot lemon tea.jpg">
             <div class="detail-desc">
               <div class="detail-name">
               <h4>Hot Lemon Tea</h4>
@@ -485,6 +489,6 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-<script src="/Xiaoyun/js/smallcloud_js.js"></script>
+<script src="js/smallcloud_js.js"></script>
 
 </html>

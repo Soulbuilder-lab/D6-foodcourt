@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drinks | Boba Milk</title>
-    <link rel="stylesheet" href="/drinks/css/drinks.css">
+    <link rel="stylesheet" href="/public/drinks/css/drinks.css">
     <!-- Ionicons for icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="shortcut icon" href="/drinks/images boba/logo.jpeg">
+    <link rel="shortcut icon" href="/public/drinks/images boba/logo.jpeg">
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js"></script>
     <!-- Your Firebase Config -->
     <script type="module">
-        import { auth, db } from '/js/firebase-config.js';
+        import { auth, db } from './firebase-config.js';
   
         window.firebaseAuth = auth;
         window.firebaseDb = db;
@@ -21,14 +25,14 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="logo-area">
-            <img src="/drinks/images boba/logo.jpeg" alt="Logo">
+            <img src="/public/drinks/images boba/logo.jpeg" alt="Logo">
         </div>
         <nav class="sidebar-menus">
-            <a href="/index.html"><ion-icon name="home-outline"></ion-icon> Home</a>
+            <a href="/public/index.html"><ion-icon name="home-outline"></ion-icon> Home</a>
             <a href="#"><ion-icon name="person-outline"></ion-icon> Contact Us</a>
         </nav>
         <div class="sidebar-logout">
-            <a href="/login/admin-login.html"><ion-icon name="log-in-outline"></ion-icon> Log In</a>
+            <a href="/public/login/admin-login.html"><ion-icon name="log-in-outline"></ion-icon> Log In</a>
         </div>
     </aside>
 
@@ -42,7 +46,7 @@
                 <button class="search-btn">Search</button>
             </div>
             <div class="profile">
-                <a href="/drinks/drinkcart.html" class="cart"><ion-icon name="cart-outline">
+                <a href="/public/drinks/drinkcart.html" class="cart"><ion-icon name="cart-outline">
                   </ion-icon><span class="cart-count" id="cart-count">0</span></a>
             </div>
         </nav>
@@ -57,25 +61,25 @@
                 </div>
             </div>
             <div id="recommedations" class="highlight-wrapper">
-                <div class="highlight-card"><img src="/drinks/images boba/classic milk tea.jpg" class="highlight-img" alt="">
+                <div class="highlight-card"><img src="/public/drinks/images boba/classic milk tea.jpg" class="highlight-img" alt="">
                     <div class="highlight-desc">
                         <h4>Classic Milk Tea</h4>
                         <p>RM5.90</p>
                     </div>
                 </div>
-                <div class="highlight-card"><img src="/drinks/images boba/brown sugar bubble milk tea.jpg" class="highlight-img" alt="">
+                <div class="highlight-card"><img src="/public/drinks/images boba/brown sugar bubble milk tea.jpg" class="highlight-img" alt="">
                     <div class="highlight-desc">
                         <h4>Brown Sugar Bubble Milk Tea</h4>
                         <p>RM7.90</p>
                     </div>
                 </div>
-                <div class="highlight-card"><img src="/drinks/images boba/matcha blended.jpg" class="highlight-img" alt="">
+                <div class="highlight-card"><img src="/public/drinks/images boba/matcha blended.jpg" class="highlight-img" alt="">
                     <div class="highlight-desc">
                         <h4>Matcha Blended</h4>
                         <p>RM10.90</p>
                     </div>
                 </div>
-                <div class="highlight-card"><img src="/drinks/images boba/oolong milk tea.jpg" class="highlight-img" alt="">
+                <div class="highlight-card"><img src="/public/drinks/images boba/oolong milk tea.jpg" class="highlight-img" alt="">
                     <div class="highlight-desc">
                         <h4>Oolong Milk Tea</h4>
                         <p>RM6.90</p>
@@ -119,7 +123,7 @@
             <div id="menus" class="main-detail">
                 <div class="detail-wrapper">
                     <div class="detail-card" data-category="milk-tea">
-                        <img src="/drinks/images boba/brown sugar bubble milk tea.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/brown sugar bubble milk tea.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Brown Sugar Bubble Milk Tea</h4>
@@ -131,7 +135,7 @@
                     </div>
 
                     <div class="detail-card" data-category="milk-tea">
-                        <img src="/drinks/images boba/classic milk tea.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/classic milk tea.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Classic Milk Tea</h4>
@@ -143,7 +147,7 @@
                     </div>
 
                     <div class="detail-card" data-category="fruit-tea">
-                        <img src="/drinks/images boba/matcha milk tea.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/matcha milk tea.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Matcha Milk Tea</h4>
@@ -155,7 +159,7 @@
                     </div>
 
                     <div class="detail-card" data-category="milk-tea">
-                        <img src="/drinks/images boba/oolong milk tea.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/oolong milk tea.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Oolong Milk Tea</h4>
@@ -167,7 +171,7 @@
                     </div>
 
                     <div class="detail-card" data-category="milk-tea">
-                        <img src="/drinks/images boba/taro milk tea.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/taro milk tea.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Taro Milk Tea</h4>
@@ -179,7 +183,7 @@
                     </div>
 
                     <div class="detail-card" data-category="ice-blended">
-                        <img src="/drinks/images boba/chocolate blended.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/chocolate blended.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Chocolate Blended</h4>
@@ -191,7 +195,7 @@
                     </div>
 
                     <div class="detail-card" data-category="ice-blended">
-                        <img src="/drinks/images boba/mango blended.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/mango blended.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Mango Blended</h4>
@@ -203,7 +207,7 @@
                     </div>
 
                     <div class="detail-card" data-category="ice-blended">
-                        <img src="/drinks/images boba/matcha blended.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/matcha blended.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Matcha Blended</h4>
@@ -215,7 +219,7 @@
                     </div>
 
                     <div class="detail-card" data-category="ice-blended">
-                        <img src="/drinks/images boba/oreo blended.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/oreo blended.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Oreo Blended</h4>
@@ -227,7 +231,7 @@
                     </div>
 
                     <div class="detail-card" data-category="ice-blended">
-                        <img src="/drinks/images boba/strawberry blended.jpg" class="detail-img" alt="Brown Sugar Boba">
+                        <img src="/public/drinks/images boba/strawberry blended.jpg" class="detail-img" alt="Brown Sugar Boba">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Strawberry Blended</h4>
@@ -239,7 +243,7 @@
                     </div>
 
                     <div class="detail-card" data-category="coffee">
-                        <img src="/drinks/images boba/hot cappucino.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/hot cappucino.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Hot Cappucino</h4>
@@ -251,7 +255,7 @@
                     </div>
 
                     <div class="detail-card" data-category="coffee">
-                        <img src="/drinks/images boba/ice cappucino.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/ice cappucino.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Ice Cappucino</h4>
@@ -263,7 +267,7 @@
                     </div>
 
                     <div class="detail-card" data-category="coffee">
-                        <img src="/drinks/images boba/hot latte.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/hot latte.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Hot Latte</h4>
@@ -275,7 +279,7 @@
                     </div>
 
                     <div class="detail-card" data-category="coffee">
-                        <img src="/drinks/images boba/ice latte.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/ice latte.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Ice Latte</h4>
@@ -287,7 +291,7 @@
                     </div>
 
                     <div class="detail-card" data-category="coffee">
-                        <img src="/drinks/images boba/hot mocha.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/hot mocha.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Hot Mocha</h4>
@@ -299,7 +303,7 @@
                     </div>
 
                     <div class="detail-card" data-category="coffee">
-                        <img src="/drinks/images boba/ice mocha.jpg" class="detail-img" alt="">
+                        <img src="/public/drinks/images boba/ice mocha.jpg" class="detail-img" alt="">
                         <div class="detail-desc">
                             <div class="detail-name">
                                 <h4>Ice Mocha</h4>
@@ -339,7 +343,7 @@
     <div class="footer-section">
       <h4>Quick Links</h4>
       <ul>
-        <li><a href="/index.html">Home</a></li>
+        <li><a href="/public/index.html">Home</a></li>
         <li><a href="#recommedations">Recommedation</a></li>
         <li><a href="#menus">Menu</a></li>
         <li><a href="#">About Us</a></li>
@@ -370,6 +374,6 @@
 </body>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="/drinks/js/drink.js"></script>
+    <script src="/public/drinks/js/drink.js"></script>
 
 </html>

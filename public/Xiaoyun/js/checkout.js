@@ -1,8 +1,11 @@
 // ============================================
-// checkout.js - Server API Version
+// checkout.js - FIREBASE VERSION
 // ============================================
-// This version calls your Express server
-// instead of Firebase client SDK
+// Required: Import Firebase (add to HTML head)
+// <script type="module" src="firebase-checkout.js"></script>
+
+import { collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
+import { db } from './firebase-config.js';
 
 const mobile = document.querySelector('.menu-toggle');
 const mobileLink = document.querySelector('.sidebar');
@@ -101,56 +104,39 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Processing...';
 
         try {
-            // ✅ Prepare order data
+            // Prepare order data
             const orderData = {
                 restaurant: 'Small Cloud',
                 table: localStorage.getItem('tableNumber') || 'Kiosk',
+                status: 'ordered', // Initial status
                 customer: { name, phone, email },
                 items: cartData,
                 payment: payment === 'cash' ? 'Cash' : 'Card',
                 subtotal: subtotal.toFixed(2),
                 tax: tax.toFixed(2),
-                total: total.toFixed(2)
-            };
-
-            console.log('📤 Sending order to server:', orderData);
-
-            // ✅ SEND TO SERVER API
-            const response = await fetch(`${CONFIG.BACKEND_URL}${CONFIG.API.CREATE_ORDER}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.error || 'Failed to save order');
-            }
-
-            console.log('✅ Order saved successfully:', result.orderId);
-
-            // Save order info locally
-            const lastOrder = {
-                id: result.orderId,
-                ...orderData,
+                total: total.toFixed(2),
                 orderDate: new Date().toLocaleString('en-MY', {
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric',
                     hour: '2-digit',
                     minute: '2-digit'
-                })
+                }),
+                createdAt: Timestamp.now(),
+                updatedAt: Timestamp.now()
             };
 
-            localStorage.setItem('lastOrder', JSON.stringify(lastOrder));
+            // ✅ SAVE TO FIREBASE
+            const docRef = await addDoc(collection(db, "orders"), orderData);
+            console.log("✅ Order saved to Firebase with ID:", docRef.id);
 
-            // Also save to localStorage foodcourt_orders for backup
+            // Save to localStorage as backup (for offline support)
             const allOrders = JSON.parse(localStorage.getItem('foodcourt_orders')) || [];
-            allOrders.push(lastOrder);
+            allOrders.push({ id: docRef.id, ...orderData });
             localStorage.setItem('foodcourt_orders', JSON.stringify(allOrders));
+
+            // Save last order
+            localStorage.setItem('lastOrder', JSON.stringify({ id: docRef.id, ...orderData }));
 
             // Save customer profile for future orders
             localStorage.setItem('customerProfile', JSON.stringify({ name, phone, email }));
@@ -159,13 +145,13 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('smallCloudCart');
             
             // Show success message
-            alert('✅ Order placed successfully! Your order ID: ' + result.orderId);
+            alert('✅ Order placed successfully! Your order ID: ' + docRef.id);
 
             // Redirect to success page
             window.location.href = 'success.html';
 
         } catch (error) {
-            console.error('❌ Error:', error);
+            console.error("❌ Error saving order:", error);
             alert("Error placing order: " + error.message);
             submitBtn.disabled = false;
             submitBtn.textContent = 'Place Order';

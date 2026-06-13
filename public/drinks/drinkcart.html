@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="/drinks/images boba/logo.jpeg" type="image/x-icon">
-    <link rel="stylesheet" href="/drinks/css/drinkcart.css">
+    <link rel="shortcut icon" href="/public/drinks/images boba/logo.jpeg" type="image/x-icon">
+    <link rel="stylesheet" href="/public/drinks/css/drinkcart.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js"></script>
     <script type="module">
-        import { auth, db } from '/js/firebase-config.js';
+        import { auth, db } from './firebase-config.js';
   
         window.firebaseAuth = auth;
         window.firebaseDb = db;
@@ -18,7 +22,7 @@
 
     <div class="sidebar">
         <div class="logo-area">
-            <img src="/drinks/images boba/logo.jpeg" alt=""> 
+            <img src="/public/drinks/images boba/logo.jpeg" alt=""> 
         </div>
     </div>
 
@@ -32,7 +36,7 @@
                     <ion-icon name="arrow-back-outline"></ion-icon>
                 </a>
                 
-                <a href="/drinks/drinkcart.html" class="cart-icon-wrapper">
+                <a href="/public/drinks/drinkcart.html" class="cart-icon-wrapper">
                     <ion-icon name="cart-outline"></ion-icon>
                     <span class="cart-count" id="header-cart-count">0</span>
                 </a>
@@ -75,7 +79,7 @@
                         Empty Cart
                     </button>
 
-                    <button class="checkout-btn" onclick="window.location.href='/drinks/drinkcheckout.html'">Checkout</button>
+                    <button class="checkout-btn" onclick="window.location.href='/public/drinks/drinkcheckout.html'">Checkout</button>
                 </div>
             </div>
         </div>
@@ -88,6 +92,6 @@
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-    <script src="/drinks/js/drinkcart.js"></script>
+    <script src="/public/drinks/js/drinkcart.js"></script>
 
 </html>

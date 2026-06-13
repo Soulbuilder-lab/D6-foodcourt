@@ -4,7 +4,7 @@
 
 import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
-import { auth, db } from './js/firebase-config.js';
+import { auth, db } from './firebase-config.js';
 
 async function login() {
   const email = document.getElementById("username").value.trim().toLowerCase();
@@ -96,7 +96,7 @@ window.login = login;
 // ============================================
 
 import { collection, query, where, onSnapshot, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
-import { db } from './js/firebase-config.js';
+import { db } from './firebase-config.js';
 
 // ✅ AUTH GUARD
 if (localStorage.getItem('adminLoggedIn') !== 'true') {

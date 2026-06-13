@@ -1,8 +1,9 @@
 // ============================================
-// history.js - Server API Version
+// history.js - FIREBASE VERSION
 // ============================================
-// This version calls your Express server
-// instead of Firebase client SDK
+
+import { collection, query, where, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
+import { db } from './firebase-config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const historyList = document.getElementById('historyList');
@@ -184,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ─────────────────────────────────────────────────────────
-  // RENDER HISTORY - SERVER API VERSION
+  // RENDER HISTORY - FIREBASE VERSION
   // ─────────────────────────────────────────────────────────
   const renderHistory = async () => {
     // No table session
@@ -202,17 +203,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      // ✅ FETCH FROM SERVER API
-      const response = await fetch(`/api/orders/table/${currentTable}`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      // ✅ FETCH FROM FIREBASE
+      const q = query(
+        collection(db, "orders"),
+        where("table", "==", currentTable)
+      );
 
-      const data = await response.json();
-      const tableOrders = data.orders || [];
-
-      console.log(`📦 Loaded ${tableOrders.length} orders for table ${currentTable}`);
+      const snapshot = await getDocs(q);
+      const tableOrders = [];
+      snapshot.forEach((doc) => {
+        tableOrders.push({ id: doc.id, ...doc.data() });
+      });
 
       // Also load from localStorage as backup
       const allOrders = JSON.parse(localStorage.getItem('foodcourt_orders')) || [];
@@ -244,8 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Sort by date descending
       merged.sort((a, b) => {
-        const dateA = new Date(a.orderDate) || 0;
-        const dateB = new Date(b.orderDate) || 0;
+        const dateA = a.createdAt?.toDate?.() || new Date(a.orderDate) || 0;
+        const dateB = b.createdAt?.toDate?.() || new Date(b.orderDate) || 0;
         return dateB - dateA;
       });
 
@@ -292,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
     } catch (error) {
-      console.error("❌ Error loading order history:", error);
+      console.error("Error loading order history:", error);
       historyList.innerHTML = `
         <div style="text-align:center; padding:30px; color:#e76f51;">
           <p>❌ Error loading order history</p>
@@ -312,6 +313,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'foodcourt_orders') renderHistory();
   });
 
-  // Refresh every 10 seconds to check for updates
-  setInterval(renderHistory, 10000);
+  // Optional: Set up real-time listener (listen for changes from other devices)
+  if (currentTable) {
+    const q = query(
+      collection(db, "orders"),
+      where("table", "==", currentTable)
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      renderHistory(); // Re-render when data changes
+    });
+
+    // Clean up listener on page unload
+    window.addEventListener('beforeunload', unsubscribe);
+  }
 });
