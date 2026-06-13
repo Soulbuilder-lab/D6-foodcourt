@@ -1,0 +1,338 @@
+:root {
+    --primaryColor: #e07a5f;   /* 陶土色：按钮、强调、价格 */
+    --secondaryColor: #f2cc8f; /* 浅金色：点缀 */
+    --whiteColor: #ffffff;     /* 纯白：卡片、输入框 */
+    --blackColor: #2b2d42;     /* 深灰蓝：主要文字 */
+    --softGreenColor: #fdf6ec; /* 米色：页面大背景 */
+    --darkGreyColor: #8d99ae;  /* 灰蓝：次要图标、分割线 */
+    --greyColor: #edf2f4;      /* 浅灰：边框、内部背景 */
+    --lightGreyColor: #f5f5f5; /* 极浅灰 */
+}
+
+/* ===== 基础布局 ===== */
+.success-page {
+    background: var(--softGreenColor);
+    min-height: 100vh;
+}
+
+/* 修改 1：让主内容区内容居中并占满宽度 */
+.main-content {
+    margin-left: 250px;
+    padding: 50px 40px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* 修改 2：增大容器宽度，保持居中 */
+.success-container {
+    max-width: 950px;
+    width: 100%;
+    margin: 0 auto;
+    animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 成功动画 ===== */
+.success-animation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.checkmark-circle {
+    width: 110px;
+    height: 110px;
+    position: relative;
+}
+
+.checkmark-circle .background {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--primaryColor); /* 陶土色 */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.checkmark-circle .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 60px;
+    border-bottom: 8px solid white;
+    border-right: 8px solid white;
+    transform: translate(-50%, -50%) rotate(45deg);
+    opacity: 0;
+}
+
+.checkmark-circle .checkmark.draw {
+    animation: checkmarkDraw 0.5s ease forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes checkmarkDraw {
+    0% { width: 0; height: 0; opacity: 1; }
+    40% { width: 0; height: 60px; opacity: 1; }
+    100% { width: 30px; height: 60px; opacity: 1; }
+}
+
+/* ===== 成功信息 ===== */
+.success-message {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.success-message h1 {
+    color: var(--blackColor); /* 深灰蓝 */
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.success-message p {
+    color: var(--darkGreyColor);
+    font-size: 16px;
+}
+
+/* ===== 订单详情卡片 ===== */
+.order-details-card {
+    background: var(--whiteColor);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--greyColor);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--greyColor);
+}
+
+.card-header h2 {
+    color: var(--blackColor);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.order-status {
+    background: var(--primaryColor); /* 陶土色 */
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.order-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.info-item {
+    background: var(--greyColor); /* 浅灰背景 */
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.info-item label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--darkGreyColor);
+    font-size: 12px;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.info-item label ion-icon {
+    color: var(--primaryColor); /* 图标颜色 */
+}
+
+.info-item p {
+    color: var(--blackColor);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.order-items-section {
+    margin-bottom: 20px;
+}
+
+.order-items-section h3 {
+    color: var(--blackColor);
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: var(--greyColor); /* 浅灰背景 */
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.order-item-name {
+    font-weight: 600;
+    color: var(--blackColor);
+}
+
+.order-item-qty {
+    color: var(--darkGreyColor);
+    font-size: 13px;
+    margin-left: 8px;
+}
+
+.order-item-price {
+    font-weight: 700;
+    color: var(--primaryColor); /* 价格颜色 */
+}
+
+.order-totals {
+    border-top: 2px solid var(--greyColor);
+    padding-top: 15px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.total-row.grand-total {
+    border-top: 1px solid var(--greyColor);
+    padding-top: 10px;
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primaryColor); /* 总价颜色 */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: var(--primaryColor);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--blackColor); /* 悬停变深色 */
+}
+
+.btn-secondary {
+    background: var(--whiteColor);
+    color: var(--primaryColor);
+    border: 1px solid var(--greyColor);
+}
+
+.btn-secondary:hover {
+    background: var(--greyColor);
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+        width: 50%;
+        min-width: 260px;
+    }
+    .sidebar.active {
+        display: flex;
+        z-index: 200;
+    }
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .success-container {
+        max-width: 100%;
+        width: 100%;
+    }
+    .checkmark-circle {
+        width: 80px;
+        height: 80px;
+    }
+    .checkmark-circle .background {
+        width: 80px;
+        height: 80px;
+        background: var(--primaryColor);
+    }
+    .checkmark-circle .checkmark {
+        width: 24px;
+        height: 48px;
+        border-bottom: 6px solid white;
+        border-right: 6px solid white;
+    }
+    .success-message h1 {
+        font-size: 24px;
+        color: var(--blackColor);
+    }
+    .order-details-card {
+        padding: 20px;
+        border: 1px solid var(--greyColor);
+    }
+    .card-header h2 {
+        font-size: 18px;
+        color: var(--blackColor);
+    }
+    .order-info-grid {
+        grid-template-columns: 1fr;
+    }
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px;
+    }
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn {
+        width: 100%;
+    }
+}

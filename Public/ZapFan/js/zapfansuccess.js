@@ -1,0 +1,68 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const lastOrder =JSON.parse(localStorage.getItem('lastOrder'));
+    if (!lastOrder) {
+        alert('No order found!');
+        window.location.href = 'zapfan.html'; // Redirect to ZapFan menu
+        return;
+    }
+
+    // 2. Populate basic info
+    const orderNum = 'ORD-' + Date.now().toString().slice(-6);
+    document.getElementById('orderNumber').textContent = '#' + (lastOrder.id || 'ORD-???');
+    document.getElementById('orderDate').textContent = lastOrder.orderDate || new Date().toLocaleString();
+    document.getElementById('customerName').textContent = lastOrder.customer?.name || 'Guest';
+    document.getElementById('paymentMethod').textContent = lastOrder.payment || 'Cash on Delivery';
+
+    // 3. Render items list
+    const itemsList = document.getElementById('orderItemsList');
+    itemsList.innerHTML = '';
+    if (lastOrder.items) {
+        lastOrder.items.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'order-item';
+            div.innerHTML = `
+                <div>
+                    <span class="order-item-name">${item.name || item.title}</span>
+                    <span class="order-item-qty">x ${item.quantity}</span>
+                </div>
+                <span class="order-item-price">RM ${(item.price * item.quantity).toFixed(2)}</span>
+            `;
+            itemsList.appendChild(div);
+        });
+    }
+
+    // 4. Calculate totals (Subtotal + Tax)
+    const sub = parseFloat(lastOrder.subtotal) || 0;
+    const tax = parseFloat(lastOrder.tax) || 0;
+    const total = sub + tax;
+
+    document.getElementById('orderSubtotal').textContent = `RM ${sub.toFixed(2)}`;
+    document.getElementById('orderTax').textContent = `RM ${tax.toFixed(2)}`;
+    document.getElementById('orderTotal').textContent = `RM ${total.toFixed(2)}`;
+});
+
+// 5. Download Receipt Function (Branded for ZapFan)
+function downloadReceipt() {
+    const lastOrder =JSON.parse(localStorage.getItem('lastOrder'));                
+    const orderNum = document.getElementById('orderNumber').textContent;
+    let text = `ZAPFAN RESTAURANT\n${orderNum}\n${lastOrder.orderDate}\n\n`;
+    text += `Customer: ${lastOrder.customer?.name || 'Guest'}\nPayment: ${lastOrder.payment}\n\nItems:\n`;
+    lastOrder.items.forEach(i => text += `- ${i.name} x${i.quantity} : RM ${(i.price*i.quantity).toFixed(2)}\n`);
+    const total = (parseFloat(lastOrder.subtotal) + parseFloat(lastOrder.tax)).toFixed(2);
+    text += `\nSubtotal: RM ${lastOrder.subtotal}\nTax: RM ${lastOrder.tax}\nTOTAL: RM ${total}`;
+
+    const blob = new Blob([text], {type: 'text/plain'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `receipt-${orderNum}.txt`;
+    a.click();
+}
+
+// 6. Logout Handler (Redirects to ZapFan)
+function handleLogout(e) {
+    e.preventDefault();
+    if(confirm('Are you sure you want to log out?')) {
+        localStorage.removeItem('currentUser');
+        window.location.href = 'zapfan.html';
+    }
+}

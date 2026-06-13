@@ -1,0 +1,588 @@
+:root {
+  /* 健康食品深绿色系 (温暖森林绿 + 燕麦米白渐变) */
+  --tea: #FDFCF8;      /* 极浅燕麦白 (全局最浅背景，温暖干净) */
+  --tea1: #F4F6F0;     /* 极浅灰绿 (侧边栏背景，柔和护眼) */
+  --tea2: #E8EDE4;     /* 浅鼠尾草绿 */
+  --tea3: #D8E0D3;     /* 柔和灰绿 (Footer 辅助文字) */
+  --tea4: #C5D1BD;     /* 浅橄榄绿 */
+  --tea5: #B0C2A7;     /* 鼠尾草绿 */
+  --tea6: #99B08E;     /* 中等橄榄绿 (边框/次要元素) */
+  --tea7: #82A075;     /* 自然绿 */
+  --tea8: #6B8F5C;     /* 清新绿 (图标/次要高亮) */
+  --tea9: #557A46;     /* 标准森林绿 */
+  --tea10: #4A6741;    /* 温暖森林绿 (主品牌色/按钮/重要强调色) */
+  --tea11: #3E5A36;    /* 深森林绿 */
+  --tea12: #36502F;    /* 悬停深色 (Hover 状态，沉稳) */
+  --tea13: #2A3F25;    /* 更深墨绿 */
+  --tea14: #1E2E1B;    /* 极深墨绿 (替代纯黑，用于重要文字，优雅且易读) */
+  
+  /* 基础色微调 (契合有机/自然主题) */
+  --blackcolor: #1A2E1A; /* 深墨绿褐 (替代纯黑，代表自然、大地，与绿色系完美融合) */
+  --whitecolor: #FFFFFF;
+  --greycolor: #F7F9F5;  /* 暖调极浅绿灰 (主背景，类似未漂白的环保纸张感) */
+  --warmred: #D46A6A;    /* 柔和陶土红 (用于错误/删除提示，与绿色互补，和谐且醒目) */
+  --mintgreen: #F0F5EE;  /* 极浅薄荷/鼠尾草绿 (用于卡片背景，强调“新鲜/健康/无添加”) */
+  --lightblue: #E8F0E6;  /* 浅绿灰 (用于图标背景，保持整体绿色调和谐) */
+  --lightgrey: #F2F5F0;  /* 暖灰绿 (主内容区背景) */
+  --accentgold: #D4A373; /* (可选) 暖沙金色，如需点缀可使用 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body.cart-page {
+    display: flex;
+    background-color: var(--greycolor);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: var(--tea1);
+    color: var(--blackcolor);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 2%;
+    flex-shrink: 0;
+    border-right: 1px solid var(--tea3); /* 增加侧边栏分割线，更精致 */
+}
+
+.logo-area {
+    background: var(--whitecolor);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(30, 46, 27, 0.05); /* 绿色系阴影 */
+}
+
+.logo-area img {
+    max-width: 100%;
+}
+
+.sidebar-menus {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-menus a, .sidebar-logout a {
+  padding: 5% 8%;
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--blackcolor);
+  border-radius: 50px; /* 增加圆角让 hover 更平滑 */
+  transition: all 0.3s ease;
+}
+
+.sidebar-menus a ion-icon, .sidebar-logout a ion-icon {
+  font-size: 20px;
+}
+
+.sidebar-menus a:hover, .sidebar-logout a:hover {
+  background-color: var(--tea10);
+  color: var(--whitecolor);
+  transform: translateX(5px); /* 增加微交互 */
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin-left: 250px;
+    background-color: var(--greycolor);
+}
+
+.top-header {
+    background-color: var(--greycolor);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--whitecolor);
+  color: var(--tea10); /* 图标颜色改为主色 */
+  text-decoration: none;
+  font-size: 20px;
+  border: 1px solid var(--tea6);
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--tea10);
+  color: var(--whitecolor);
+  font-size: 10px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  border: 2px solid var(--greycolor); /* 增加边框让数字更清晰 */
+}
+
+.cart-icon-wrapper:hover, .user-profile:hover {
+  background-color: var(--tea10);
+  color: var(--whitecolor);
+  border-color: var(--tea10);
+  box-shadow: 0 4px 12px rgba(74, 103, 65, 0.2);
+}
+
+.user-profile {
+    background-color: var(--whitecolor);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--tea10);
+    border: 1px solid var(--tea6);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cart-container {
+    padding: 0 40px 40px 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.cart-items-section h2 {
+    margin-bottom: 20px;
+    color: var(--blackcolor);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.cart-item-card {
+    background-color: var(--whitecolor);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(30, 46, 27, 0.04); /* 绿色系柔和阴影 */
+    border: 1px solid var(--tea5);
+    transition: all 0.3s ease;
+}
+
+.cart-item-card:hover {
+    border-color: var(--tea8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(30, 46, 27, 0.08);
+}
+
+.item-image img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.item-details {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.item-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--blackcolor);
+    margin-bottom: 5px;
+}
+
+.item-price {
+    color: var(--tea10); /* 价格使用主色，更醒目 */
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.item-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.qty-btn {
+    background: var(--whitecolor);
+    border: 1px solid var(--tea6);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tea10);
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.qty-btn:hover {
+    background: var(--tea10);
+    color: var(--whitecolor);
+    border-color: var(--tea10);
+}
+
+.remove-btn {
+    color: var(--warmred);
+    cursor: pointer;
+    font-size: 22px;
+    margin-left: 10px;
+    transition: transform 0.2s, color 0.2s;
+    vertical-align: middle;
+    background: transparent;
+    border: none;
+}
+
+.remove-btn:hover {
+    transform: scale(1.15);
+    color: #b94a4a; /* 悬停时红色更深一点 */
+}
+
+.checkout-card {
+    background-color: var(--whitecolor);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(30, 46, 27, 0.06);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+    border: 1px solid var(--tea5);
+}
+
+.checkout-card h3 {
+    margin-bottom: 20px;
+    color: var(--blackcolor);
+    border-bottom: 2px solid var(--tea4);
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: var(--blackcolor);
+    font-size: 15px;
+}
+
+.summary-row.total {
+    font-weight: 800;
+    color: var(--blackcolor);
+    font-size: 1.2rem;
+    margin-top: 15px;
+    border-top: 2px solid var(--tea4);
+    padding-top: 15px;
+}
+
+hr {
+    border: none;
+    margin: 15px 0;
+    border-top: 1px dashed var(--tea4); /* 虚线分割线更精致 */
+}
+
+.coupon-area {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.coupon-area input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--tea6);
+    border-radius: 25px;
+    outline: none;
+    font-size: 14px;
+    color: var(--blackcolor);
+    background-color: var(--greycolor);
+    transition: border-color 0.3s;
+}
+
+.coupon-area input:focus {
+    border-color: var(--tea10);
+    background-color: var(--whitecolor);
+}
+
+.apply-btn {
+    padding: 10px 20px;
+    background-color: var(--tea10);
+    color: var(--whitecolor);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.apply-btn:hover {
+    background-color: var(--tea12);
+    box-shadow: 0 4px 10px rgba(74, 103, 65, 0.2);
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--tea10);
+    color: var(--whitecolor);
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 0.5px;
+}
+
+.checkout-btn:hover {
+    background: var(--tea12);
+    box-shadow: 0 6px 15px rgba(74, 103, 65, 0.3);
+    transform: translateY(-2px);
+}
+
+.empty-cart-btn {
+    width: 100%;
+    margin: 15px 0;
+    padding: 12px;
+    background-color: transparent;
+    border: 1.5px solid var(--warmred);
+    color: var(--warmred);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.empty-cart-btn:hover {
+    background-color: var(--warmred);
+    color: var(--whitecolor);
+    box-shadow: 0 4px 10px rgba(212, 106, 106, 0.2);
+}
+
+.empty-cart-btn ion-icon {
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+body.cart-page .menu-toggle {
+    display: none;
+}
+
+.previous-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--whitecolor);
+    color: var(--tea10);
+    border: 1px solid var(--tea6);
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.previous-btn:hover {
+    background-color: var(--tea10);
+    color: var(--whitecolor);
+    border-color: var(--tea10);
+    transform: translateX(-3px);
+    box-shadow: 0 4px 10px rgba(74, 103, 65, 0.2);
+}
+
+.previous-btn:active {
+    transform: translateX(0);
+}
+
+@media screen and (max-width: 768px) {
+  body.cart-page .menu-toggle {
+    display: flex;
+  }
+
+  .sidebar {
+    display: none;
+    top: 70px;
+    width: 200px;
+    z-index: 100;
+    box-shadow: 4px 0 20px rgba(30, 46, 27, 0.15);
+  }
+
+  .sidebar.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: flex;
+    text-decoration: none;
+    font-size: 20px;
+    background-color: var(--tea10);
+    color: var(--whitecolor);
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    height: 40px;
+    border-radius: 50%;
+    z-index: 3;
+    cursor: pointer;
+    order: 3;
+    flex-shrink: 0;
+    border: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .top-header {
+    padding: 15px 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .user-actions {
+    order: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: auto;
+  }
+
+  .cart-container {
+    grid-template-columns: 1fr;
+    padding: 0 20px 20px 20px;
+    gap: 20px;
+  }
+
+  .cart-items-section h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .checkout-card {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .cart-item-card {
+    padding: 12px;
+    flex-wrap: nowrap;
+  }
+
+  .item-image img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .item-details {
+    flex: 1;
+    padding-left: 12px;
+    margin: 0;
+  }
+
+  .item-name { 
+    font-size: 15px; 
+  }
+
+  .item-price { 
+    font-size: 14px; 
+  }
+
+  .item-controls { 
+    gap: 8px; 
+  }
+
+  .qty-btn { 
+    width: 28px; 
+    height: 28px; 
+    font-size: 1rem; 
+  }
+
+  .remove-btn { 
+    font-size: 20px; 
+  }
+
+  .summary-row { 
+    font-size: 14px; 
+  }
+
+  .checkout-btn { 
+    padding: 14px; 
+    font-size: 15px; 
+  }
+
+  .coupon-area input { 
+    padding: 10px; 
+    font-size: 13px; 
+  }
+
+  .apply-btn { 
+    padding: 10px 15px; 
+    font-size: 13px; 
+  }
+
+  .previous-btn {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+}
